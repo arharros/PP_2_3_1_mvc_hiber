@@ -3,39 +3,52 @@ package web.services;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import web.dao.UserRepository;
+import web.dao.UsersDao;
 import web.model.User;
 
 import java.util.List;
 
 @Service
-@Transactional
 public class UsersServicesImp implements UsersServices {
 
-    private UserRepository userRepository;
+    private UsersDao usersDao;
 
     @Autowired
-    public void setUserRepository(UserRepository userRepository) {
-        this.userRepository = userRepository;
+    public void setUsersDao(UsersDao usersDao) {
+        this.usersDao = usersDao;
     }
 
+    @Transactional
     @Override
     public void addUser(User user) {
-        userRepository.save(user);
+        usersDao.addUser(user);
     }
 
-    @Override
-    public List<User> listOfUsers() {
-        return (List<User>) userRepository.findAll();
-    }
-
+    @Transactional(readOnly = true)
     @Override
     public User findUserById(long id) {
-        return userRepository.findById(id).get();
+        return usersDao.findUserById(id);
     }
 
+    @Transactional
     @Override
     public void deleteUserById(long id) {
-        userRepository.deleteById(id);
+        usersDao.deleteUserById(id);
+    }
+
+    @Transactional
+    @Override
+    public void updateUserById(long id, User user) {
+        User userForEdit = usersDao.findUserById(id);
+        userForEdit.setName(user.getName());
+        userForEdit.setLastName(user.getLastName());
+        userForEdit.setEmail(user.getEmail());
+        usersDao.updateUser(user);
+    }
+
+    @Transactional(readOnly = true)
+    @Override
+    public List<User> listOfUsers() {
+        return usersDao.listOfUsers();
     }
 }

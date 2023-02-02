@@ -8,10 +8,12 @@ public interface UsersServices {
 
     void addUser(User user);
 
-    List<User> listOfUsers();
-
     User findUserById(long id);
 
     void deleteUserById(long id);
+
+    void updateUserById(long id, User user);
+
+    List<User> listOfUsers();
 
 }

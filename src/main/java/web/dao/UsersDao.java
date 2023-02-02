@@ -2,16 +2,17 @@ package web.dao;
 
 import web.model.User;
 
-import java.math.BigInteger;
 import java.util.List;
 
 public interface UsersDao {
 
-    void addUser();
+    void addUser(User user);
 
-    void deleteUserById(BigInteger id);
+    User findUserById(long id);
 
-    void updateUserById(BigInteger id, User user);
+    void deleteUserById(long id);
+
+    void updateUser(User user);
 
     List<User> listOfUsers();
 }

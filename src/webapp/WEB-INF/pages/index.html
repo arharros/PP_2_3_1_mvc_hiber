@@ -6,15 +6,13 @@
     <title></title>
 </head>
 <body>
-<div>
+<div align="center">
     <th:block th:each="msg : ${messages}">
         <h1 th:text="${msg}"></h1>
     </th:block>
 </div>
-<div>
-    <h1>
-        <a href="/user">Users</a>
-    </h1>
-</div>
+<h1 align="center">
+    <a href="/users">Users</a>
+</h1>
 </body>
 </html>
